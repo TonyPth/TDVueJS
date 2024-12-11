@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation d'Hôtel</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <link rel="stylesheet" href="exo12.css">
+</head>
+<body>
+    <div id="app">
+      <h1>Réservation d'Hôtel</h1>
+
+      <form @submit.prevent="soumettreReservation">
+        <label for="nom">Nom :</label>
+        <input 
+          id="nom" 
+          type="text" 
+          v-model="nom" 
+          placeholder="Entrez votre nom" 
+          required
+        />
+
+        <label for="email">Email :</label>
+        <input 
+          id="email" 
+          type="email" 
+          v-model="email" 
+          placeholder="Entrez votre email" 
+          required
+        />
+
+        <label for="dateArrivee">Date d'arrivée :</label>
+        <input 
+          id="dateArrivee" 
+          type="date" 
+          v-model="dateArrivee" 
+          @change="calculerNbNuits" 
+          required
+        />
+
+        <label for="dateDepart">Date de départ :</label>
+        <input 
+          id="dateDepart" 
+          type="date" 
+          v-model="dateDepart" 
+          @change="calculerNbNuits" 
+          required
+        />
+
+        <button type="submit">Réserver</button>
+      </form>
+
+      <div v-if="nom && email && nbNuits > 0">
+        <h3>Résumé de la réservation :</h3>
+        <p><strong>Nom :</strong> {{ nom }}</p>
+        <p><strong>Email :</strong> {{ email }}</p>
+        <p><strong>Date d'arrivée :</strong> {{ dateArrivee }}</p>
+        <p><strong>Date de départ :</strong> {{ dateDepart }}</p>
+        <p><strong>Nombre de nuits :</strong> {{ nbNuits }}</p>
+        <p><strong>Coût total :</strong> {{ coutTotal }} €</p>
+      </div>
+
+      <div v-if="erreurDate">
+        <p style="color: red;">Erreur : La date de départ doit être après la date d'arrivée.</p>
+      </div>
+
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            nom: '',
+            email: '',
+            dateArrivee: '',
+            dateDepart: '',
+            nbNuits: 0,
+            tarif: 100, // Tarif de la chambre par nuit
+            erreurDate: false
+          };
+        },
+        methods: {
+          // Méthode pour calculer le nombre de nuits
+          calculerNbNuits() {
+            const dateArrivee = new Date(this.dateArrivee);
+            const dateDepart = new Date(this.dateDepart);
+            if (dateArrivee && dateDepart && dateArrivee < dateDepart) {
+              const diffTime = Math.abs(dateDepart - dateArrivee);
+              this.nbNuits = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convertir en jours
+              this.erreurDate = false;
+            } else {
+              this.nbNuits = 0;
+              this.erreurDate = true;
+            }
+          },
+          // Méthode pour soumettre le formulaire
+          soumettreReservation() {
+            if (this.nom && this.email && this.dateArrivee && this.dateDepart && this.nbNuits > 0) {
+              alert('Réservation effectuée avec succès !');
+            } else {
+              alert('Veuillez remplir correctement tous les champs.');
+            }
+          }
+        },
+        computed: {
+          // Calculer le coût total de la réservation
+          coutTotal() {
+            return this.nbNuits * this.tarif;
+          }
+        }
+      });
+
+      app.mount('#app');
+    </script>
+</body>
+</html>

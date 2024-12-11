@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message de Bienvenue</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+      <h1>Message de Bienvenue</h1>
+      <button @click="setLanguage('en')">Anglais</button>
+      <button @click="setLanguage('fr')">Français</button>
+      <button @click="setLanguage('es')">Espagnol</button>
+  
+      <p v-if="language === 'en'">Welcome!</p>
+      <p v-if="language === 'fr'">Bienvenue !</p>
+      <p v-if="language === 'es'">¡Bienvenido!</p>
+    </div>
+  
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            language: 'en'
+          };
+        },
+        methods: {
+          setLanguage(lang) {
+            this.language = lang;
+          }
+        }
+      });
+  
+      app.mount('#app');
+    </script>
+  </body>
+</html>

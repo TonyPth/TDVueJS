@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste de Fruits avec Messages</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+      <h1>Liste des Fruits</h1>
+      <ul>
+        <li v-for="fruit in fruits" :key="fruit">
+          {{ `Le ${fruit} a une longueur de ${fruit.length} caractères.` }}
+        </li>
+      </ul>
+    </div>
+  
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            fruits: ["Pomme", "Banane", "Orange"]
+          };
+        }
+      });
+  
+      app.mount('#app');
+    </script>
+  </body>
+</html>

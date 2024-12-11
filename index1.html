@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exercice 1 TD Vue</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="incrementerCompteur">Cliquez-moi</button>
+        <p>Vous avez cliqué {{ compteur }} fois.</p>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    compteur: 0 // La valeur initiale du compteur est définie à 0
+                }
+            },
+
+            methods: {
+                incrementerCompteur() {
+                    this.compteur++; // La méthode incrementerCompteur incrémente le compteur de 1 à chaque appui sur le bouton
+                }
+            }
+        });
+        
+        let objet = app.mount('#app');
+    </script>
+</body>
+
+</html>

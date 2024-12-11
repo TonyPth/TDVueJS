@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 3 TD Vue</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="number" v-model="prix_ht" name="prix_ht" id="prix_ht"></textarea>
+        <p>Montant TTC: {{ montantTTC.toFixed(2) }} €</p>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    prix_ht: 0
+                };
+            },
+
+            computed: {
+                montantTTC()
+                {
+                    return this.prix_ht*1.2;
+                }
+            }
+        });
+        
+        let objet = app.mount('#app');
+    </script>
+</body>
+</html>

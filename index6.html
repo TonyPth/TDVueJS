@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue Personnalisé</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Bienvenue Personnalisé</h1>
+        <input 
+          type="text" 
+          v-model="userName" 
+          placeholder="Entrez votre nom" 
+        />
+
+        <button @click="showMessage">Afficher le message de bienvenue</button>
+    
+        <p v-if="message">Bienvenue, {{ userName }} !</p>
+      </div>
+    
+      <script>
+        const app = Vue.createApp({
+          data() {
+            return {
+              userName: '', 
+              message: false
+            };
+          },
+          methods: {
+            showMessage() {
+              this.message = true;
+            }
+          }
+        });
+    
+        app.mount('#app');
+      </script>
+</body>
+</html>

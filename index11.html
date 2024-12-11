@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur de Température</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+      <h1>Convertisseur de Température</h1>
+  
+      <label for="temperature">Température en °C :</label>
+      <input 
+        id="temperature" 
+        type="number" 
+        v-model="celsius" 
+        placeholder="Entrez la température en °C"
+      />
+  
+      <p v-if="celsius >= 100">L'eau bout à cette température.</p>
+  
+      <p>Température convertie : {{ fahrenheit }} °F</p>
+    </div>
+  
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            celsius: 0
+          };
+        },
+        computed: {
+          fahrenheit() {
+            return (this.celsius * 9/5 + 32).toFixed(2);
+          }
+        }
+      });
+  
+      app.mount('#app');
+    </script>
+  </body>
+</html>
